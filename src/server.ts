@@ -1,6 +1,6 @@
 import dotenv from "dotenv";
-import mongoose from "mongoose";
 import app from "./app";
+import { connectDB } from "./db";
 import { User } from "./modules/user/user.model";
 
 dotenv.config();
@@ -22,16 +22,7 @@ const seedAdminUser = async () => {
 
 const startServer = async () => {
   try {
-    const mongoUri = process.env.MONGO_URI;
-
-    if (!mongoUri) {
-      console.error("MONGO_URI is not set in .env");
-      process.exit(1);
-    }
-
-    await mongoose.connect(mongoUri);
-    console.log("MongoDB connected");
-
+    await connectDB();
     await seedAdminUser();
 
     app.listen(PORT, () => {
