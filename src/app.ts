@@ -15,6 +15,7 @@ const allowedOrigins = [
   "https://mini-erp-black.vercel.app",
 ];
 
+// CORS middleware
 app.use(
   cors({
     origin: (origin, callback) => {
@@ -29,7 +30,10 @@ app.use(
     allowedHeaders: ["Content-Type", "Authorization", "x-access-token"],
   })
 );
-app.options("*", cors());
+
+// ⚠️ REMOVE THIS LINE ⚠️
+// app.options("*", cors());
+
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use("/uploads", express.static(path.join(__dirname, "../uploads")));
